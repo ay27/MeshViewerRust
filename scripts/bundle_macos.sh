@@ -118,21 +118,43 @@ echo "  open \"$APP_DIR\"                    # Launch the app"
 echo "  cp -r \"$APP_DIR\" /Applications/     # Install to Applications"
 echo ""
 
-# Create a DMG (optional, only if create-dmg is available)
-if command -v create-dmg &>/dev/null && [ "$BUILD_MODE" = "release" ]; then
-    echo "Detected create-dmg, building .dmg installer ..."
+# Create a DMG (release only).
+if [ "$BUILD_MODE" = "release" ]; then
     DMG_PATH="$OUTPUT_DIR/MeshViewerRust-0.1.0.dmg"
     rm -f "$DMG_PATH"
-    create-dmg \
-        --volname "MeshViewerRust" \
-        --window-pos 200 120 \
-        --window-size 600 400 \
-        --icon-size 100 \
-        --icon "$BUNDLE_NAME" 150 190 \
-        --app-drop-link 450 190 \
-        "$DMG_PATH" \
-        "$APP_DIR" || true
+
+    if command -v create-dmg &>/dev/null; then
+        echo "Detected create-dmg, building .dmg installer ..."
+        create-dmg \
+            --volname "MeshViewerRust" \
+            --window-pos 200 120 \
+            --window-size 600 400 \
+            --icon-size 100 \
+            --icon "$BUNDLE_NAME" 150 190 \
+            --app-drop-link 450 190 \
+            "$DMG_PATH" \
+            "$APP_DIR" || true
+    elif command -v hdiutil &>/dev/null; then
+        echo "create-dmg not found, falling back to hdiutil ..."
+        STAGING_DIR="$OUTPUT_DIR/dmg-staging"
+        rm -rf "$STAGING_DIR"
+        mkdir -p "$STAGING_DIR"
+        cp -R "$APP_DIR" "$STAGING_DIR/"
+        ln -s /Applications "$STAGING_DIR/Applications" || true
+        hdiutil create \
+            -volname "MeshViewerRust" \
+            -srcfolder "$STAGING_DIR" \
+            -ov \
+            -format UDZO \
+            "$DMG_PATH"
+        rm -rf "$STAGING_DIR"
+    else
+        echo "WARNING: Neither create-dmg nor hdiutil is available; skipping DMG creation."
+    fi
+
     if [ -f "$DMG_PATH" ]; then
         echo "DMG created: $DMG_PATH"
+    else
+        echo "DMG was not created."
     fi
 fi

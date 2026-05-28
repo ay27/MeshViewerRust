@@ -107,6 +107,28 @@ cargo run -- /path/to/model.fbx
 ./scripts/bundle_macos.sh debug
 ```
 
+可选：安装 `create-dmg`（用于更美观的 DMG 布局）
+
+```bash
+brew install create-dmg
+```
+
+> 脚本会优先使用 `create-dmg`；若未安装，会自动回退到系统自带 `hdiutil` 生成 `.dmg`。
+
+#### macOS 首次打开提示（安全隔离 / 自签名）
+
+如果下载或拷贝后的 `.app` 无法直接打开，可先移除隔离属性：
+
+```bash
+xattr -dr com.apple.quarantine /path/to/MeshViewerRust.app
+```
+
+如仍有签名相关告警，可执行一次本地 ad-hoc 自签名：
+
+```bash
+codesign --force --deep --sign - /path/to/MeshViewerRust.app
+```
+
 ### Roadmap（计划中）
 
 - UV 预览能力完善
@@ -228,6 +250,28 @@ Debug bundle:
 
 ```bash
 ./scripts/bundle_macos.sh debug
+```
+
+Optional: install `create-dmg` (for prettier DMG layout):
+
+```bash
+brew install create-dmg
+```
+
+> The script prefers `create-dmg`; if unavailable, it automatically falls back to macOS built-in `hdiutil`.
+
+#### First launch on macOS (quarantine / ad-hoc signing)
+
+If the app cannot be opened on first launch, remove quarantine attributes:
+
+```bash
+xattr -dr com.apple.quarantine /path/to/MeshViewerRust.app
+```
+
+If signature warnings still appear, apply local ad-hoc signing:
+
+```bash
+codesign --force --deep --sign - /path/to/MeshViewerRust.app
 ```
 
 ### Roadmap
