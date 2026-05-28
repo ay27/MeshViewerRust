@@ -1,5 +1,9 @@
 # MeshViewerRust
 
+<p align="center">
+  <img src="./new_icn.png" alt="MeshViewerRust Icon" width="220" />
+</p>
+
 [中文](#中文) | [English](#english)
 
 ---
@@ -18,6 +22,12 @@ MeshViewerRust 是一个基于 Rust + Bevy 的桌面 3D 网格查看器，目标
 - 中英文 UI 本地化
 - 设置持久化（TOML）
 - macOS Finder 打开文件支持（项目内含对应插件）
+
+### 预览图
+
+| 预览图 1 | 预览图 2 |
+| --- | --- |
+| ![MeshViewer Preview 1](./docs/image.png) | ![MeshViewer Preview 2](./docs/image2.png) |
 
 ### 支持的模型格式
 
@@ -135,6 +145,12 @@ It currently targets practical preview/debug use cases such as mesh/material/ske
 - Built-in Chinese/English localization
 - Persistent settings via TOML
 - macOS Finder open-file support plugin
+
+### Screenshots
+
+| Preview 1 | Preview 2 |
+| --- | --- |
+| ![MeshViewer Preview 1](./docs/image.png) | ![MeshViewer Preview 2](./docs/image2.png) |
 
 ### Supported Formats
 
