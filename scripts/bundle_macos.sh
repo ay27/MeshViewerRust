@@ -15,6 +15,10 @@ BUNDLE_NAME="MeshViewerRust.app"
 BINARY_NAME="mesh_viewer_rust"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+APP_VERSION="$(awk -F ' = ' '/^version = / { gsub(/"/, "", $2); print $2; exit }' "$PROJECT_DIR/Cargo.toml")"
+if [ -z "${APP_VERSION:-}" ]; then
+    APP_VERSION="0.1.0"
+fi
 
 BUILD_MODE="${1:-release}"
 
@@ -29,6 +33,12 @@ fi
 
 OUTPUT_DIR="$PROJECT_DIR/target/$BUILD_MODE/bundle"
 APP_DIR="$OUTPUT_DIR/$BUNDLE_NAME"
+BUILD_ARCH_RAW="$(uname -m)"
+case "$BUILD_ARCH_RAW" in
+    arm64) BUILD_ARCH="aarch64" ;;
+    x86_64) BUILD_ARCH="x86_64" ;;
+    *) BUILD_ARCH="$BUILD_ARCH_RAW" ;;
+esac
 
 echo "=== Building $APP_NAME ($BUILD_MODE) ==="
 
@@ -60,7 +70,7 @@ if [ -f "$PROJECT_DIR/macos/Info.plist" ]; then
     cp "$PROJECT_DIR/macos/Info.plist" "$APP_DIR/Contents/Info.plist"
 else
     echo "WARNING: macos/Info.plist not found, generating a minimal one ..."
-    cat > "$APP_DIR/Contents/Info.plist" << 'PLIST'
+    cat > "$APP_DIR/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -70,9 +80,9 @@ else
     <key>CFBundleIdentifier</key>
     <string>com.meshviewerrust.app</string>
     <key>CFBundleVersion</key>
-    <string>0.1.0</string>
+    <string>${APP_VERSION}</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>${APP_VERSION}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleExecutable</key>
@@ -120,7 +130,7 @@ echo ""
 
 # Create a DMG (release only).
 if [ "$BUILD_MODE" = "release" ]; then
-    DMG_PATH="$OUTPUT_DIR/MeshViewerRust-0.1.0.dmg"
+    DMG_PATH="$OUTPUT_DIR/MeshViewerRust-${APP_VERSION}-macos-$BUILD_ARCH.dmg"
     rm -f "$DMG_PATH"
 
     if command -v create-dmg &>/dev/null; then

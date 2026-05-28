@@ -10,8 +10,7 @@
 
 ## 中文
 
-MeshViewerRust 是一个基于 Rust + Bevy 的桌面 3D 网格查看器，目标是提供轻量、快速、可扩展的模型浏览与调试体验。  
-当前重点面向模型预览、结构检查（网格/材质/骨骼/UV）和基础工作流集成（如拖拽打开、文件浏览、可选 Blender 打开）。
+MeshViewerRust 是一个基于 Rust + Bevy 的高性能桌面 3D 模型查看器：专为大模型场景而生，百万面模型也能秒级打开，并提供网格、材质、骨骼、UV 等完整视图能力。
 
 ### 功能特性
 
@@ -22,6 +21,7 @@ MeshViewerRust 是一个基于 Rust + Bevy 的桌面 3D 网格查看器，目标
 - 中英文 UI 本地化
 - 设置持久化（TOML）
 - macOS Finder 打开文件支持（项目内含对应插件）
+- 秒级打开百万面模型（硬件相关）
 
 ### 预览图
 
@@ -156,7 +156,8 @@ cargo test
 ## English
 
 MeshViewerRust is a desktop 3D mesh viewer built with Rust + Bevy, focused on lightweight, fast, and extensible model inspection workflows.  
-It currently targets practical preview/debug use cases such as mesh/material/skeleton/UV inspection and basic workflow integrations (file dialog, drag-and-drop, optional Blender handoff).
+It currently targets practical preview/debug use cases such as mesh/material/skeleton/UV inspection and basic workflow integrations (file dialog, drag-and-drop, optional Blender handoff).  
+Built for heavy assets: million-face models load in seconds, with mesh/material/skeleton/UV workflows in one desktop app.
 
 ### Features
 
@@ -167,6 +168,7 @@ It currently targets practical preview/debug use cases such as mesh/material/ske
 - Built-in Chinese/English localization
 - Persistent settings via TOML
 - macOS Finder open-file support plugin
+- Seconds-level loading for million-face models (hardware dependent)
 
 ### Screenshots
 
