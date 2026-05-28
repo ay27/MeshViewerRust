@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>MeshViewerRust</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>MeshViewerRust</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>com.meshviewerrust.app</string>
+
+    <key>CFBundleVersion</key>
+    <string>0.1.0</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.0</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleExecutable</key>
+    <string>mesh_viewer_rust</string>
+
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+
+    <key>LSMinimumSystemVersion</key>
+    <string>12.0</string>
+
+    <key>NSHighResolutionCapable</key>
+    <true/>
+
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
+
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <!-- Generic 3D content -->
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>3D Model</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.3d-content</string>
+            </array>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>obj</string>
+                <string>gltf</string>
+                <string>glb</string>
+                <string>stl</string>
+                <string>dae</string>
+                <string>ply</string>
+                <string>3ds</string>
+            </array>
+        </dict>
+        <!-- FBX — needs its own entry since macOS may not associate it with public.3d-content -->
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>FBX file</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>com.autodesk.fbx</string>
+            </array>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>fbx</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Declare imported UTIs so macOS recognises FBX even if no other app defines it -->
+    <key>UTImportedTypeDeclarations</key>
+    <array>
+        <dict>
+            <key>UTTypeIdentifier</key>
+            <string>com.autodesk.fbx</string>
+            <key>UTTypeDescription</key>
+            <string>Autodesk FBX File</string>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.3d-content</string>
+                <string>public.data</string>
+            </array>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>fbx</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

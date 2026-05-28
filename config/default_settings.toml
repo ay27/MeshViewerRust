@@ -1,0 +1,35 @@
+# Mesh Viewer — Default Settings
+# This file documents the default values. The actual runtime settings are
+# persisted to the platform-specific config directory.
+
+theme = "Dark"
+
+[common]
+background_color = [0.5, 0.5, 0.5]
+light_intensity = 4.0
+show_ground_grid = true
+show_axis_gizmos = true
+show_stats = true
+
+[mesh_mode]
+double_side = true
+flat_shading = false
+metalness = 0.5
+roughness = 0.5
+mesh_color = [0.8, 0.8, 0.8]
+
+[wireframe_mode]
+wireframe_color = [0.0, 0.0, 0.6]
+show_points = true
+point_color = [0.855, 1.0, 0.0]
+point_size = 0.1
+use_vertex_colors = false
+
+[skeleton_mode]
+mesh_alpha = 0.3
+bone_color = [1.0, 0.3, 0.1]
+bone_line_width = 2.0
+always_visible = true
+
+[animation_mode]
+playback_speed = 1.0

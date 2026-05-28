@@ -1,0 +1,32 @@
+[package]
+name = "mesh_viewer_rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { version = "0.18", features = ["default"] }
+bevy_egui = "0.39"
+bevy_panorbit_camera = { version = "0.34", features = ["bevy_egui"] }
+russimp = { package = "russimp-ng", version = "3.2.7", features = ["static-link"] }
+rfd = "0.15"
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+directories = "6"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc = "0.2"
+
+[package.metadata.bundle]
+name = "MeshViewerRust"
+identifier = "com.meshviewerrust.app"
+version = "0.1.0"
+copyright = "Copyright 2026"
+category = "public.app-category.graphics-design"
+short_description = "A 3D mesh viewer built with Rust - MeshViewerRust"
+osx_minimum_system_version = "12.0"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
